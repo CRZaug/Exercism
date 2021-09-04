@@ -69,7 +69,6 @@ function countMinesAndGenerateResult(input, width, height) {
 
         // Fill result board if there's no mine there (fill with count or space)
         if (count == 0) {
-        ̦
           row += " ";
         } else {
           row += count;
