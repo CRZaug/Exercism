@@ -15,16 +15,16 @@
  * @return {Array}       An array of strings forming a filled-in minesweeper board
  */
 export const annotate = (input) => {
-  
+
   var [width, height] = determineGridDimensions(input);
 
-  if (width == 0 || height == 0){
+  if (width == 0 || height == 0) {
     return input; // Not a feasible board
   } else {
-    var result = countMinesAndGenerateResult(input,width,height);
+    var result = countMinesAndGenerateResult(input, width, height);
     return result;
   }
-  
+
 };
 
 /**
@@ -32,15 +32,15 @@ export const annotate = (input) => {
  * @param  {Array} input An array of strings forming a minesweeper board 
  * @return {Array}       An array containing int of width and height
  */
-function determineGridDimensions(input){
+function determineGridDimensions(input) {
 
   var height = input.length;
-  var width = 0; 
-  
-  if (height > 0){
+  var width = 0;
+
+  if (height > 0) {
     var width = input[0].length;
   }
-  
+
   return [width, height]
 }
 
@@ -51,24 +51,25 @@ function determineGridDimensions(input){
  * @param  {Number} height Integer representing number of horizontal squares
  * @return {Array}         An array of strings forming a filled-in minesweeper board
  */
-function countMinesAndGenerateResult(input, width, height){
+function countMinesAndGenerateResult(input, width, height) {
 
   // Initialize array to hold final minesweeper board
   var result = [];
 
   // Iterate through all non-mine indices, get feasible neighbors, and count mines
-  for (var y = 0; y < height; y++){
+  for (var y = 0; y < height; y++) {
 
     var row = "";
 
-    for (var x = 0; x < width; x++){
-      if (!isMine(input[y][x])){
+    for (var x = 0; x < width; x++) {
+      if (!isMine(input[y][x])) {
 
-        var [xIndices,yIndices] = generateAcceptableIndices(x,y, width, height);
-        var count = sumUpLocalMines(input,xIndices,yIndices);
-        
+        var [xIndices, yIndices] = generateAcceptableIndices(x, y, width, height);
+        var count = sumUpLocalMines(input, xIndices, yIndices);
+
         // Fill result board if there's no mine there (fill with count or space)
-        if (count == 0){
+        if (count == 0) {
+        ̦
           row += " ";
         } else {
           row += count;
@@ -78,7 +79,7 @@ function countMinesAndGenerateResult(input, width, height){
         // Fill result board if there's a mine in that space
         row += "*";
       }
-      
+
     }
     result.push(row);
   }
@@ -93,17 +94,17 @@ function countMinesAndGenerateResult(input, width, height){
  * @param {Number} height  The height of the board 
  * @return {Array}         An array of arrays: contains neighboring x & y indices 
  */
-function generateAcceptableIndices(x,y, width, height){
+function generateAcceptableIndices(x, y, width, height) {
   var xIndices = [x];
   var yIndices = [y];
 
   if (x - 1 >= 0) xIndices.push(x - 1);
-  if (x + 1 <= width-1) xIndices.push(x + 1);
+  if (x + 1 <= width - 1) xIndices.push(x + 1);
 
   if (y - 1 >= 0) yIndices.push(y - 1);
-  if (y + 1 <= height-1) yIndices.push(y + 1);
+  if (y + 1 <= height - 1) yIndices.push(y + 1);
 
-  return [xIndices,yIndices]
+  return [xIndices, yIndices]
 
 }
 /**
@@ -111,7 +112,7 @@ function generateAcceptableIndices(x,y, width, height){
  * @param {String} space A string containing 1 character: the particular space
  * @return {Boolean}     True if the space is a mine, false otherwise 
  */
-function isMine(space){
+function isMine(space) {
   return (space == '*') ? true : false;
 }
 
@@ -122,23 +123,21 @@ function isMine(space){
  * @param {Array} yIndices  Array of possible neighbors' y indices
  * @return {Number}         Number of mines around the current space
  */
-function sumUpLocalMines(input,xIndices,yIndices){
+function sumUpLocalMines(input, xIndices, yIndices) {
 
   var xyCount = 0;
-  for (var i in xIndices){
+  for (var i in xIndices) {
 
     var xi = xIndices[i];
- 
-    for (var j in yIndices){
+
+    for (var j in yIndices) {
 
       var yi = yIndices[j];
-      if (isMine(input[yi][xi])){
-     
-        xyCount+=1;
+      if (isMine(input[yi][xi])) {
+
+        xyCount += 1;
       }
     }
   }
- 
- 
   return xyCount;
 }
