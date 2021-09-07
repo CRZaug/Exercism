@@ -28,7 +28,7 @@ export const annotate = (input) => {
 };
 
 /**
- * Return number of mines around a square in minesweeper
+ * Return the width and height of a grid
  * @param  {Array} input An array of strings forming a minesweeper board 
  * @return {Array}       An array containing int of width and height
  */
